@@ -135,7 +135,3 @@ To swap the image later, regenerate `favicon-wrapped.svg`, `.svg.gz`, and
 - Only three engines enabled, deliberately, to keep this a one-day
   project rather than an open-ended SearXNG customization exercise.
 
-## What I learned
-
-*(Fill this in after finishing deployment and running through the test
-checklist — that's the part actually worth writing.)*
