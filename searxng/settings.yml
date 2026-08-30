@@ -1,0 +1,45 @@
+# Read the documentation before extending the defaults:
+# https://docs.searxng.org/admin/settings/
+
+use_default_settings:
+  engines:
+    keep_only:
+      - google
+      - bing
+      - wikipedia
+
+engines:
+  - name: google
+    disabled: false
+  - name: bing
+    disabled: false
+  - name: wikipedia
+    disabled: false
+
+general:
+  instance_name: "LaughSearch"
+  debug: false
+  enable_metrics: false
+  donation_url: false
+  contact_url: false
+  privacypolicy_url: false
+
+search:
+  safe_search: 1
+  autocomplete: "google"
+  default_lang: "auto"
+  formats:
+    - html
+
+ui:
+  static_use_hash: false
+  default_theme: simple 
+  theme_args:
+    simple_style: dark
+    custom_css: "main#main_index #search_logo { mask-image: none !important; -webkit-mask-image: none !important; background: url(../img/searxng.png) no-repeat center !important; background-size: contain !important; width: 320px !important; height: 120px !important; }"
+
+server:
+  secret_key: "SEARXNG_SECRET"
+  limiter: true
+  image_proxy: true
+  public_instance: false

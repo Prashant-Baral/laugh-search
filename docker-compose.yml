@@ -1,0 +1,37 @@
+services:
+  searxng:
+    image: docker.io/searxng/searxng:latest
+    container_name: laughsearch
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./searxng:/etc/searxng:rw
+       # 1. TAB CONTROLS: Maps the standalone face to all browser shortcut paths
+      - ./searxng/assets/favicon.png:/usr/local/searxng/searx/static/themes/simple/img/favicon.png:ro
+      - ./searxng/assets/favicon.png:/usr/local/searxng/searx/static/themes/simple/img/favicon.ico:ro
+
+      # 2. HOMEPAGE HERO CONTROLS: Maps your beautiful full logo artwork to the center text spots
+      - ./searxng/assets/logo.png:/usr/local/searxng/searx/static/themes/simple/img/logo.svg:ro
+      - ./searxng/assets/logo.png:/usr/local/searxng/searx/static/themes/simple/img/searxng.png:ro
+      - ./searxng/assets/logo.png:/usr/local/searxng/searx/static/themes/simple/img/searxng.svg:ro
+
+      # 3. TAB FAVICON (svg) + its precompressed siblings, which SearXNG
+      #    serves in place of the plain .svg whenever the browser accepts
+      #    gzip/br compression — override all three or the browser silently
+      #    keeps getting the old default icon.
+      - ./searxng/assets/favicon-wrapped.svg:/usr/local/searxng/searx/static/themes/simple/img/favicon.svg:ro
+      - ./searxng/assets/favicon-wrapped.svg.gz:/usr/local/searxng/searx/static/themes/simple/img/favicon.svg.gz:ro
+      - ./searxng/assets/favicon-wrapped.svg.br:/usr/local/searxng/searx/static/themes/simple/img/favicon.svg.br:ro
+    environment:
+      - SEARXNG_BASE_URL=${SEARXNG_BASE_URL}
+      - SEARXNG_SECRET=${SEARXNG_SECRET}
+      - SEARXNG_VALKEY_URL=valkey://valkey:6379/0
+    depends_on:
+      - valkey
+    restart: unless-stopped
+
+  valkey:
+    image: docker.io/valkey/valkey:8-alpine
+    container_name: laughsearch-valkey
+    command: valkey-server --save "" --appendonly "no"
+    restart: unless-stopped
