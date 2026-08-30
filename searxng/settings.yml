@@ -5,8 +5,16 @@ use_default_settings:
   engines:
     keep_only:
       - google
+      - google images
+      - google videos
+      - google news
       - bing
+      - bing images
+      - bing videos
+      - bing news
       - wikipedia
+      - youtube
+      - openstreetmap
 
 engines:
   - name: google
@@ -26,7 +34,7 @@ general:
 
 search:
   safe_search: 1
-  autocomplete: "google"
+  autocomplete: "duckduckgo"
   default_lang: "auto"
   formats:
     - html
